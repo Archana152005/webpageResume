@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Flip Card with Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #4c21c2, #1a1a3f);
+        }
+
+        /* Flip Card Main Container */
+        .flip-card {
+            background-color: transparent;
+            width: 700px;
+            height: 800px;
+            perspective: 1000px;
+            animation: float 3s infinite ease-in-out alternate;
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(10px); }
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s ease-in-out;
+            transform-style: preserve-3d;
+        }
+
+        /* Flip Animation */
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        /* Front & Back with Glass Effect */
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            
+            /* Glass Effect */
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: breathing 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes breathing {
+            0% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); }
+            100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.4); }
+        }
+
+        /* Back Side */
+        .flip-card-back {
+            background: rgba(173, 216, 230, 0.15);
+            transform: rotateY(180deg);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            
+        }
+
+        /* Profile Image Effects */
+        .profile-img-container {
+            position: relative;
+            width: 128px;
+            height: 128px;
+            border-radius: 50%;
+            overflow: hidden;
+            animation: breathing 3s infinite alternate ease-in-out;
+            transition: transform 0.3s ease-out, box-shadow 0.5s ease-in-out;
+            
+            /* Default Soft Glow */
+            box-shadow: 0 0 15px rgba(255, 0, 34, 0.5);
+        }
+
+        .profile-img-container:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px rgba(173, 216, 230, 0.7);
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.2s ease-out;
+        }
+
+        /* Hover Tilt Effect */
+        .flip-card:hover {
+            animation: tilt 0.5s ease-in-out;
+        }
+
+        @keyframes tilt {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(1deg); }
+            50% { transform: rotate(-1deg); }
+            75% { transform: rotate(1deg); }
+        }
+        /* Glowing Text Effect */
+        .glowing-text {
+            color: #8750bb;
+            font-weight: bold;
+            text-shadow: 0 0 5px #3c096c, 0 0 10px #5a189a, 0 0 15px #7b2cbf;
+            animation: glow 1.5s infinite alternate;
+        }
+
+        /* Glow Animation */
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 5px #3c096c, 0 0 10px #5a189a, 0 0 15px #7b2cbf;
+            }
+            100% {
+                text-shadow: 0 0 10px #5a189a, 0 0 20px #7b2cbf, 0 0 25px #9d4edd;
+            }
+        }
+
+        .section-box {
+            transition: transform 0.3s ease, background-color 0.3s ease, border 0.3s ease;
+            padding: 10px;
+            border: 2px solid aliceblue;
+            border-radius: 10px;
+            animation: breathing 3s infinite alternate ease-in-out;
+        }
+
+        .section-box:hover {
+            transform: translateY(-5px);
+            background-color: transparent;
+            border: 2px solid aliceblue;
+        }
+    .skill-item {
+      transition: transform 0.3s ease, color 0.3s ease;
+      cursor: pointer;
+    }
+    .skill-item:hover {
+      transform: translateX(8px);
+      color: #00ADB5;
+    }
+    .hidden-list {
+      display: none;
+      margin-top: 10px;
+    }
+    .section-box:hover .hidden-list {
+      display: block;
+      animation: fadeIn 0.5s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .certificate-item {
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .certificate-item:hover {
+      color: #00ADB5;
+    }
+    .certificate-image {
+      display: none;
+      margin-top: 10px;
+      width: 100%;
+      max-width: 300px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: opacity 0.3s ease-in-out;
+    }
+            /* Star Container */
+            .star-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Prevent interaction */
+        }
+
+        /* Individual Stars */
+        .star {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+            animation: orbit 5s linear infinite;
+        }
+
+        /* Animation for Orbiting Effect */
+        @keyframes orbit {
+            0% {
+                transform: rotate(0deg) translateX(160px) rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg) translateX(160px) rotate(-360deg);
+            }
+        }
+        .certificate-item {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+            .certificate-item:hover {
+            color: #00ADB5;
+        }
+
+        .certificate-image {
+            display: none;
+            margin-top: 10px;
+            width: 100%;
+            max-width: 300px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: opacity 0.3s ease-in-out;
+        }
+        /* Different Star Positions */
+        .star:nth-child(1) { animation-duration: 4s; animation-delay: 0s; }
+        .star:nth-child(2) { animation-duration: 5s; animation-delay: 1s; }
+        .star:nth-child(3) { animation-duration: 6s; animation-delay: 2s; }
+        .star:nth-child(4) { animation-duration: 7s; animation-delay: 3s; }
+        .star:nth-child(5) { animation-duration: 8s; animation-delay: 4s; }
+        .foot{
+            position: fixed;
+            bottom: 3%;
+            font-weight: 100;
+        }
+
+        @media (max-width: 1024px) {
+            .flip-card {
+            background-color: transparent;
+            width: 600px;
+            height: 700px;
+            perspective: 1000px;
+            animation: float 3s infinite ease-in-out alternate;
+        }
+}
+@media (max-width: 768px) {
+    .flip-card {
+            background-color: transparent;
+            width: 400px;
+            height: 700px;
+            perspective: 1000px;
+            animation: float 3s infinite ease-in-out alternate;
+}}
+/*button style*/
+
+.button {
+ display: inline-block;
+ width: 150px;
+ height: 50px;
+ border-radius: 10px;
+ border: 2px solid #03045e;
+ position: relative;
+ overflow: hidden;
+ transition: all 0.5s ease-in;
+ z-index: 1;
+}
+
+.button::before,
+.button::after {
+ content: '';
+ position: absolute;
+ top: 0;
+ width: 0;
+ height: 100%;
+ transform: skew(15deg);
+ transition: all 0.5s;
+ overflow: hidden;
+ z-index: -1;
+}
+
+.button::before {
+ left: -10px;
+ background: #240046;
+}
+
+.button::after {
+ right: -10px;
+ background: #5a189a;
+}
+
+.button:hover::before,
+.button:hover::after {
+ width: 58%;
+}
+
+.button:hover span {
+ color: #e0aaff;
+ transition: 0.3s;
+}
+
+.button span {
+ color: #03045e;
+ font-size: 18px;
+ transition: all 0.3s ease-in;
+}
+    </style>
+</head>
+<body>
+    <div class="flip-card">
+        <div class="star-container">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+        </div>
+        <div class="flip-card-inner">
+            <!-- Front Side -->
+            <div class="flip-card-front">
+                <div class="container mx-auto p-4 text-center">
+                    <div class="profile-img-container mx-auto">
+                        <img src="./Archana.jpg" alt="Profile picture placeholder" class="profile-img"/>
+                    </div>
+                    <h1 class="text-2xl font-bold mt-4">Archana</h1>
+                    <p class="text-lg">
+                        I'm <span class="glowing-text input">A Web Developer!</span>
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Back Side -->
+            <div class="flip-card-back">
+                <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Skills Section -->
+                    <div class="section-box text-center hover-effect">
+                        <h2 class="font-bold text-lg glowing-text">SKILLS</h2>
+                        <ul class="hidden-list text-sm">
+                            <li class="skill-item"> C++</li>
+                            <li class="skill-item"> Java</li>
+                            <li class="skill-item"> Type Writting</li>
+                            <li class="skill-item"> Python</li>
+                            <li class="skill-item"> JavaScript</li>
+                            <li class="skill-item"> HTML</li>
+                            <li class="skill-item"> CSS</li>
+                        </ul>
+                    </div>
+                    <div class="section-box text-center hover-effect">
+                        <h2 class="font-bold text-lg glowing-text">CERTIFICATES</h2>
+                        <ul class="hidden-list text-sm">
+                          <li class="certificate-item" onmouseover="showCertificate('cert1')" onmouseout="hideCertificate()">🎓 Developsite for Web</li>
+                          <li class="certificate-item" onmouseover="showCertificate('cert2')" onmouseout="hideCertificate()">🎓 Introduction HTML and CSS</li>
+                          <li class="certificate-item" onmouseover="showCertificate('cert3')" onmouseout="hideCertificate()">🎓 Life With JavaScript</li>
+                          <li class="certificate-item" onmouseover="showCertificate('cert4')" onmouseout="hideCertificate()">🎓 Web Development Basics</li>
+                        </ul>
+                        <img id="certificate-image" class="certificate-image" src="" alt="Certificate Preview">
+                      </div>
+                
+
+                    <!-- Experience Section -->
+                    <div class="section-box text-center hover-effect">
+                        <h2 class="font-bold text-lg glowing-text">EXPERIENCE</h2>
+                        <p class="hidden-list text-sm">No Experience Yet</p>
+                    </div>
+
+                    <!-- Contact Section -->
+                    <div class="section-box text-center hover-effect">
+                        <h2 class="font-bold text-lg glowing-text">CONTACT</h2>
+                        <ul class="hidden-list text-sm">
+                            <li>📞 Phone: <a href="tel:+91 89253 87791" class="text-cyan-400 hover:text-red-400">+91 89253 87791</a></li>
+                            <li>📷 Instagram: <a href="https://www.instagram.com/archana_archana_18/" class="text-cyan-400 hover:text-red-400">@archana_archana_18</a></li>
+                            <li>💻 Mail: <a href="mailto:archanasenthilbatra@gmail.com" class="text-cyan-400 hover:text-red-400">archanasenthilbatra@gmail.com</a></li>
+                        </ul>
+                    </div>
+                    <button class="button text-black-700 font-bold" onclick="downloadPage()">Download Resume</button>
+
+                    <script>
+                        function downloadPage()  {
+                            const fileUrl = "./Resume.pdf"; // Path to the PDF file in the same folder
+                            const link = document.createElement("a");
+                            link.href = fileUrl;
+                            link.download = "Resume.pdf"; // The name of the file when downloaded
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                    }
+                    </script>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+<script>
+    // Typed.js for Animated Text
+    var typed = new Typed('.input', {
+        strings: ["Web Developer!", "Report Writer!"],
+        typeSpeed: 100,
+        backSpeed: 100,
+        loop: true,
+        showCursor: true,
+        cursorChar: '|',
+    });
+    function showCertificate(cert) {
+      const image = document.getElementById("certificate-image");
+      const images = {
+        cert1: "./DevelopsiteforWeb.png",
+        cert2: "./IntroductioHTMLandCSS.png",
+        cert3: "./LifeWithJavaScript.png",
+        cert4: "./Webdevelopmentbasics.png",
+      };
+      image.src = images[cert];
+      image.style.display = "block";
+    }
+
+    function hideCertificate() {
+      document.getElementById("certificate-image").style.display = "none";
+    }
+</script>
+<footer class="foot">
+    @2025 archanasenthilbatra
+</footer>
+</html>
